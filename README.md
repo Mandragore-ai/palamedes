@@ -4,7 +4,7 @@
 
 **[Mandragore.ai](https://mandragore.ai/) · [Maitresinh@500nuancesdegeek.fr](mailto:Maitresinh@500nuancesdegeek.fr)**
 
-**Licences :** firmware et logiciels sous **AGPL-3.0**, matériel sous **CERN-OHL-S-2.0**, logo et documentation sous **CC BY-SA 4.0**. Citation et partage à l'identique obligatoires ; licence commerciale sur demande pour qui ne veut pas publier ses modifications. Détails : [LICENCES.md](LICENCES.md).
+**Licences :** firmware hardware et logiciels sous **AGPL-3.0**, logo et documentation sous **CC BY-SA 4.0**. Citation et partage à l'identique obligatoires ; licence commerciale sur demande pour qui ne veut pas publier ses modifications. Détails : [LICENCES.md](LICENCES.md).
 
 **Mandragore.ai · 23 novembre 2026 · prototype : conçu et simulé, pas encore fabriqué**
 
@@ -18,6 +18,14 @@ Chaque dé connaît la face sur laquelle il s'arrête et l'annonce par Bluetooth
 - **Électronique** : module Bluetooth Fanstel BC832 (nRF52832), accéléromètre LIS2DH12, pile bouton rechargeable LIR1254, recharge sans fil.
 - **Recharge** : une boîte recharge les 7 dés d'un set. Une bobine gravée dans le circuit imprimé se trouve sous chaque logement ; chaque emplacement détecte le dé posé et s'arrête seul.
 - **Premier dé : D20.** Le D4 est un D8 numéroté deux fois de 1 à 4. Les coques D6, D8, D10 et D12 restent à dessiner.
+
+## Points forts
+
+- Cout minimisé
+- Consommation électrique minimisée (autonomie accrue)
+- Taille réduite (similaire à des dés normaux)
+- Coque interchangeable (perrmet de changer de type de dé avec le même coeur)
+- Présence, localisation et identité du dé (et résultat) transmis à un écran capacitif
 
 ## Contenu du dépôt
 
