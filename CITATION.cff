@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "Si vous réutilisez ces dés ou ces fichiers, citez « Alea Palamedis — 500 Nuances de Geek / Mandragore » et ce dépôt."
+title: "Alea Palamedis — dés connectés pour Mandragore"
+type: software
+authors:
+  - name: "Mandragore.ai / 500 Nuances de Geek"
+date-released: 2026-11-23
+repository-code: "https://github.com/Mandragore-ai/Palamedes"
+url: "https://mandragore.ai/"
+license:
+  - AGPL-3.0-only
+  - CERN-OHL-S-2.0
+  - CC-BY-SA-4.0
+abstract: "Dés Bluetooth à cœur noyé dans la résine (nRF52832, recharge sans fil, pastilles capacitives), boîte-chargeur 7 dés, firmware et client Web Bluetooth pour le Mentor et le Sage en direct de Mandragore."

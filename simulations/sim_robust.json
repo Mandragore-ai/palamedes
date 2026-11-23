@@ -1,0 +1,38 @@
+{
+ "base": {
+  "A_toutes_reliees": 11.5,
+  "B_une_par_face": 200.2,
+  "D_4_groupes_disperses": 166.1,
+  "C_4_groupes_voisines": 152.4
+ },
+ "maillage fin": {
+  "A_toutes_reliees": 8.4,
+  "B_une_par_face": 189.8,
+  "D_4_groupes_disperses": 157.0,
+  "C_4_groupes_voisines": 143.8
+ },
+ "paroi 1.5 mm": {
+  "A_toutes_reliees": 6.4,
+  "B_une_par_face": 109.8,
+  "D_4_groupes_disperses": 89.7,
+  "C_4_groupes_voisines": 84.7
+ },
+ "pas plateau 8 mm": {
+  "A_toutes_reliees": 8.4,
+  "B_une_par_face": 221.1,
+  "D_4_groupes_disperses": 169.1,
+  "C_4_groupes_voisines": 144.3
+ },
+ "pastilles 50% de la face": {
+  "A_toutes_reliees": 31.5,
+  "B_une_par_face": 169.6,
+  "D_4_groupes_disperses": 143.0,
+  "C_4_groupes_voisines": 136.1
+ },
+ "D20 26 mm": {
+  "A_toutes_reliees": 7.5,
+  "B_une_par_face": 199.6,
+  "D_4_groupes_disperses": 165.6,
+  "C_4_groupes_voisines": 150.5
+ }
+}

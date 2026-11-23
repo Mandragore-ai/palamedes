@@ -1,0 +1,14 @@
+{
+  "name": "mcdice-web",
+  "version": "0.1.0",
+  "description": "Client Web Bluetooth des dés connectés MCDice pour Mandragore",
+  "main": "mcdice.ts",
+  "license": "SEE LICENSE IN ../../LICENSE.md",
+  "scripts": {
+    "verifier": "tsc --noEmit --strict --target es2020 --lib es2020,dom --types web-bluetooth mcdice.ts tabletop-dice.ts journal-roll.ts"
+  },
+  "devDependencies": {
+    "@types/web-bluetooth": "^0.0.22",
+    "typescript": "^5.9.3"
+  }
+}

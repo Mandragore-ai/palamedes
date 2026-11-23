@@ -1,0 +1,38 @@
+mcdice.name=MCDice (BC832, oscillateur RC)
+mcdice.bootloader.tool=bootburn
+mcdice.upload.tool=nrfutil
+mcdice.upload.protocol=nrfutil
+mcdice.upload.use_1200bps_touch=false
+mcdice.upload.wait_for_upload_port=false
+mcdice.upload.native_usb=false
+mcdice.upload.maximum_size=290816
+mcdice.upload.maximum_data_size=51712
+mcdice.build.mcu=cortex-m4
+mcdice.build.f_cpu=64000000
+mcdice.build.board=NRF52832_FEATHER
+mcdice.build.core=nRF5
+mcdice.build.variant=mcdice_bc832
+mcdice.build.usb_manufacturer="Adafruit"
+mcdice.build.usb_product="Feather nRF52832"
+mcdice.build.extra_flags=-DNRF52832_XXAA -DNRF52
+mcdice.build.ldscript=nrf52832_s132_v6.ld
+mcdice.build.openocdscript=scripts/openocd/daplink_nrf52.cfg
+mcdice.menu.softdevice.s132v6=S132 6.1.1
+mcdice.menu.softdevice.s132v6.build.sd_name=s132
+mcdice.menu.softdevice.s132v6.build.sd_version=6.1.1
+mcdice.menu.softdevice.s132v6.build.sd_fwid=0x00B7
+mcdice.menu.debug.l0=Level 0 (Release)
+mcdice.menu.debug.l0.build.debug_flags=-DCFG_DEBUG=0
+mcdice.menu.debug.l1=Level 1 (Error Message)
+mcdice.menu.debug.l1.build.debug_flags=-DCFG_DEBUG=1
+mcdice.menu.debug.l2=Level 2 (Full Debug)
+mcdice.menu.debug.l2.build.debug_flags=-DCFG_DEBUG=2
+mcdice.menu.debug.l3=Level 3 (Segger SystemView)
+mcdice.menu.debug.l3.build.debug_flags=-DCFG_DEBUG=3
+mcdice.menu.debug.l3.build.sysview_flags=-DCFG_SYSVIEW=1
+mcdice.menu.debug_output.serial=Serial
+mcdice.menu.debug_output.serial.build.logger_flags=-DCFG_LOGGER=0
+mcdice.menu.debug_output.serial1=Serial1
+mcdice.menu.debug_output.serial1.build.logger_flags=-DCFG_LOGGER=1 -DCFG_TUSB_DEBUG=CFG_DEBUG
+mcdice.menu.debug_output.rtt=Segger RTT
+mcdice.menu.debug_output.rtt.build.logger_flags=-DCFG_LOGGER=2 -DCFG_TUSB_DEBUG=CFG_DEBUG -DSEGGER_RTT_MODE_DEFAULT=SEGGER_RTT_MODE_BLOCK_IF_FIFO_FULL

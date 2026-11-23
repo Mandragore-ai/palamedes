@@ -1,0 +1,73 @@
+{
+ "dimensions_mm": [
+  157.0,
+  87.0,
+  12.6
+ ],
+ "plancher_mm": 0.6,
+ "logements": [
+  {
+   "de": "D4*",
+   "forme": "D8",
+   "taille_mm": 22.0,
+   "centre_bobine_mm": [
+    26.0,
+    61.0
+   ]
+  },
+  {
+   "de": "D6",
+   "forme": "D6",
+   "taille_mm": 20.0,
+   "centre_bobine_mm": [
+    61.0,
+    61.0
+   ]
+  },
+  {
+   "de": "D8",
+   "forme": "D8",
+   "taille_mm": 22.0,
+   "centre_bobine_mm": [
+    96.0,
+    61.0
+   ]
+  },
+  {
+   "de": "D10",
+   "forme": "D10",
+   "taille_mm": 23.0,
+   "centre_bobine_mm": [
+    131.0,
+    61.0
+   ]
+  },
+  {
+   "de": "D%",
+   "forme": "D10",
+   "taille_mm": 23.0,
+   "centre_bobine_mm": [
+    43.5,
+    26.0
+   ]
+  },
+  {
+   "de": "D12",
+   "forme": "D12",
+   "taille_mm": 23.0,
+   "centre_bobine_mm": [
+    78.5,
+    26.0
+   ]
+  },
+  {
+   "de": "D20",
+   "forme": "D20",
+   "taille_mm": 22.5,
+   "centre_bobine_mm": [
+    113.5,
+    26.0
+   ]
+  }
+ ]
+}

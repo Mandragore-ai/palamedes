@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dé Mandragore — test Bluetooth</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 560px; margin: 2rem auto; padding: 0 1rem; color: #222; }
+  button { font-size: 1rem; padding: .5rem .9rem; margin: .2rem; border-radius: 8px; border: 1px solid #888; background: #f4f4f4; }
+  #valeur { font-size: 5rem; font-weight: 700; text-align: center; margin: 1rem 0; min-height: 6rem; }
+  #etat, #journal { color: #555; }
+  #journal { font-family: monospace; font-size: .85rem; white-space: pre-wrap; max-height: 14rem; overflow: auto; background: #fafafa; padding: .5rem; }
+  #tapis { height: 140px; border: 2px dashed #aaa; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #888; touch-action: none; margin-top: 1rem; }
+</style>
+</head>
+<body>
+<h1>Dé Mandragore</h1>
+<p>Chrome (ordinateur ou Android) requis : Web Bluetooth n'existe pas sur Safari iOS.</p>
+<button id="connecter">Connecter un dé</button>
+<button data-cmd="03 01">Mode plateau</button>
+<button data-cmd="03 02">Mode tablette</button>
+<button data-cmd="03 03">Les deux</button>
+<br>
+<button data-cmd="02 01">Étalonner : face 1 en haut</button>
+<button data-cmd="02 02">puis face 2 en haut</button>
+<label> Couleur <input type="color" id="couleur" value="#002850"></label>
+<div id="valeur">–</div>
+<div id="etat">non connecté</div>
+<div id="tapis">Posez le dé ici (mode tablette) : les contacts codés s'affichent dans le journal</div>
+<div id="journal"></div>
+<script>
+const SVC  = "6d616e64-7261-676f-7265-000000000001";
+const ROLL = "6d616e64-7261-676f-7265-000000000002";
+const CMD  = "6d616e64-7261-676f-7265-000000000003";
+const ETATS = ["repos", "roule…", "arrêté", "penché (relancer)"];
+let cmdChar = null;
+const log = (t) => { const j = document.getElementById("journal"); j.textContent = t + "\n" + j.textContent; };
+
+document.getElementById("connecter").onclick = async () => {
+  try {
+    const dev = await navigator.bluetooth.requestDevice({ filters: [{ services: [SVC] }], optionalServices: ["battery_service"] });
+    dev.addEventListener("gattserverdisconnected", () => { document.getElementById("etat").textContent = "déconnecté"; });
+    const gatt = await dev.gatt.connect();
+    const svc = await gatt.getPrimaryService(SVC);
+    const roll = await svc.getCharacteristic(ROLL);
+    cmdChar = await svc.getCharacteristic(CMD);
+    roll.addEventListener("characteristicvaluechanged", (e) => {
+      const d = new Uint8Array(e.target.value.buffer);
+      const [seq, etat, valeur, face, conf] = d;
+      document.getElementById("etat").textContent = `${dev.name} — ${ETATS[etat] || etat} (confiance ${conf} %)`;
+      if (etat === 2) { document.getElementById("valeur").textContent = valeur; log(`#${seq} ${dev.name} : ${valeur} (face ${face})`); }
+      if (etat === 1) document.getElementById("valeur").textContent = "…";
+    });
+    await roll.startNotifications();
+    try {
+      const bat = await (await gatt.getPrimaryService("battery_service")).getCharacteristic("battery_level");
+      log(`pile : ${(await bat.readValue()).getUint8(0)} %`);
+    } catch (_) {}
+    document.getElementById("etat").textContent = `${dev.name} connecté`;
+  } catch (err) { log("erreur : " + err.message); }
+};
+
+document.querySelectorAll("button[data-cmd]").forEach((b) => b.onclick = async () => {
+  if (!cmdChar) return log("connecter un dé d'abord");
+  const bytes = new Uint8Array(b.dataset.cmd.split(" ").map((h) => parseInt(h, 16)));
+  await cmdChar.writeValueWithResponse(bytes); log("commande " + b.dataset.cmd);
+});
+document.getElementById("couleur").onchange = async (e) => {
+  if (!cmdChar) return;
+  const h = e.target.value; const rgb = [1, 3, 5].map((i) => parseInt(h.substr(i, 2), 16));
+  await cmdChar.writeValueWithResponse(new Uint8Array([1, ...rgb]));
+};
+
+// décodage du « tapotement » capacitif : créneaux de 50 ms, départ = contact de 150 ms
+let fronts = [];
+const tapis = document.getElementById("tapis");
+const ev = (type) => (e) => { e.preventDefault(); fronts.push([type, performance.now(), e.clientX, e.clientY]); decoder(); };
+tapis.addEventListener("pointerdown", ev(1)); tapis.addEventListener("pointerup", ev(0)); tapis.addEventListener("pointercancel", ev(0));
+let minuteur = null;
+function decoder() {
+  clearTimeout(minuteur);
+  minuteur = setTimeout(() => {
+    if (fronts.length < 2) { fronts = []; return; }
+    const t0 = fronts[0][1]; const bits = [];
+    // reconstruit le signal échantillonné toutes les 50 ms après le créneau de départ (150 ms) + vide (50 ms)
+    const niveau = (t) => { let v = 0; for (const [s, tt] of fronts) { if (tt <= t) v = s; } return v; };
+    for (let k = 0; k < 13; k++) bits.push(niveau(t0 + 200 + 25 + k * 50));
+    const mot = parseInt(bits.join(""), 2);
+    log(`tablette : id ${mot >> 5}, valeur ${mot & 31} à (${Math.round(fronts[0][2])}, ${Math.round(fronts[0][3])})`);
+    fronts = [];
+  }, 900);
+}
+</script>
+</body>
+</html>
